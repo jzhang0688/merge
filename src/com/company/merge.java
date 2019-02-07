@@ -1,28 +1,51 @@
 package com.company;
 
 public class merge {
-
-    public void MergeSort(int[] arr)
+    private static void mergeSortHelper(int[] elements, int from, int to, int[] temp)
     {
-        int n = arr.length;
-        int[] temp = new int[n];
-        mergeSortHelper(arr, 0, n-1, temp);
-    }
-
-    public void mergeSortHelper(int[] arr, int left, int right, int[] temp)
-    {
-        if(left < right)
+        if (from < to)
         {
-            int mid = (left+right)/2;
-            mergeSortHelper(arr, left, mid, temp);
-            mergeSortHelper(arr, mid+1, right, temp);
-            merge(arr, left, mid, right, temp);
+            int middle = (from + to)/2;
+            mergeSortHelper(elements, from, middle, temp);
+            mergeSortHelper(elements, middle+1,to,temp);
+            merge(elements, from, middle, to, temp);
         }
-
     }
-
-    public void merge(int[]arr, int left, int mid, int right, int[] temp)
+    private static void merge(int[] elements, int from, int mid, int to, int[]temp)
     {
-               
+        int i = from;
+        int j = mid+1;
+        int k = from;
+
+        while(i <= mid && j <= to)
+        {
+            if(elements[i] < elements[j])
+            {
+                temp[k] = elements[i];
+                i++;
+            }
+            else
+            {
+                temp[k] = elements[j];
+                j++;
+            }
+            k++;
+        }
+        while (i <= mid)
+        {
+            temp[k] = elements[i];
+            i++;
+            k++;
+        }
+        while (j <= to)
+        {
+            temp[k] = elements[j];
+            j++;
+            k++;
+        }
+        for(k = from; k <= to; k++)
+        {
+            elements[k] = temp[k];
+        }
     }
 }
